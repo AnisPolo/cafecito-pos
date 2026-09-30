@@ -1,0 +1,22 @@
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
+  height: 100%;
+}
+
+.title {
+  margin-bottom: 0.5rem;
+}
+
+.action {
+  margin-top: auto;
+  align-self: flex-end;
+}
+
+@media (max-width: 860px) {
+  .action {
+    align-self: stretch;
+    margin-top: 1rem;
+  }
+}

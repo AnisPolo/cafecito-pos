@@ -1,0 +1,17 @@
+.logo img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+}
+
+.sm {
+  height: 48px;
+}
+
+.md {
+  height: clamp(64px, 6vw, 92px);
+}
+
+.lg {
+  height: 110px;
+}

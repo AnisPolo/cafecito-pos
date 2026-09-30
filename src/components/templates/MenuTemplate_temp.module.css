@@ -1,0 +1,15 @@
+.page {
+  min-height: 100vh;
+  background: var(--cream);
+}
+
+.categories {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 860px) {
+  .categories {
+    grid-template-columns: 1fr;
+  }
+}

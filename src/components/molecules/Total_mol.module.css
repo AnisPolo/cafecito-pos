@@ -1,0 +1,35 @@
+.panel {
+  position: relative;
+  background: var(--sage);
+  padding: clamp(2rem, 3vw, 3rem) clamp(1.5rem, 2.5vw, 2.5rem) clamp(1.5rem, 2.5vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+/* Punto naranja montado sobre el borde superior */
+.dot {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -45%);
+  width: clamp(30px, 2.6vw, 42px);
+  height: clamp(30px, 2.6vw, 42px);
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0 clamp(0.5rem, 1.5vw, 1.5rem);
+}
+
+.label,
+.amount {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--brown-deep);
+}

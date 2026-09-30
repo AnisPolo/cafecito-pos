@@ -1,0 +1,10 @@
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--brown);
+  font-size: var(--fs-xl);
+  color: var(--brown);
+}

@@ -1,0 +1,17 @@
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.label {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--brown-deep);
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1rem, 2vw, 2.5rem);
+}

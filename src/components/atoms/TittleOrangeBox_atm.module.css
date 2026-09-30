@@ -1,0 +1,17 @@
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.plain {
+  color: var(--brown);
+}
+
+.boxed {
+  color: var(--cream);
+  background: var(--orange);
+  padding: 0.45em 0.7em 0.55em;
+}

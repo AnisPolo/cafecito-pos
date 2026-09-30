@@ -1,0 +1,24 @@
+.panel {
+  padding: clamp(1.5rem, 3vw, 2.75rem) clamp(1.5rem, 3vw, 3rem) clamp(2.5rem, 4vw, 4rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 3.5vw, 3.5rem);
+}
+
+.hot {
+  background: var(--amber);
+}
+
+.cold {
+  background: var(--sage);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: clamp(2rem, 4vw, 4rem) clamp(1.5rem, 3vw, 3rem);
+}
+
+.item {
+  display: block;
+}

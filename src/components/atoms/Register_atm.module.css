@@ -1,0 +1,16 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 2.2em;
+  background: var(--amber);
+  color: var(--brown);
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1;
+  padding: 0.55em 1.1em 0.65em;
+}
+
+.arrow {
+  width: 0.45em;
+  flex-shrink: 0;
+}

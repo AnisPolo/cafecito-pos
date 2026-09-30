@@ -1,0 +1,11 @@
+.block {
+  display: flex;
+  flex-direction: column;
+}
+
+.more {
+  background: var(--green);
+  display: flex;
+  justify-content: center;
+  padding: clamp(0.75rem, 1.5vw, 1.25rem);
+}

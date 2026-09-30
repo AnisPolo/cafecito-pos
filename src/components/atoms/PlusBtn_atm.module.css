@@ -1,0 +1,9 @@
+.btn {
+  width: clamp(34px, 3.2vw, 46px);
+  display: block;
+  line-height: 0;
+}
+
+.btn img {
+  width: 100%;
+}

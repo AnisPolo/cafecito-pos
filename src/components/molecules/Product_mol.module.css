@@ -1,0 +1,47 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.media {
+  position: relative;
+  width: 100%;
+  z-index: 2;
+}
+
+/* Cuadrada y contenida: así las tarjetas de una misma fila alinean sus placas */
+.photo {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  filter: drop-shadow(6px 10px 10px rgba(92, 58, 33, 0.35));
+}
+
+.plus {
+  position: absolute;
+  top: 2%;
+  right: 4%;
+}
+
+/* La placa crema arranca a media foto y se extiende por debajo */
+.plate {
+  position: relative;
+  z-index: 1;
+  width: 78%;
+  margin-top: -42%;
+  padding: 44% 0.5rem 0.9rem;
+  background: var(--cream);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+.price {
+  margin-bottom: -0.55em;
+}

@@ -1,0 +1,31 @@
+.page {
+  min-height: 100vh;
+  background: var(--cream);
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 0.95fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  padding: 0 var(--gutter) clamp(2rem, 4vw, 4rem);
+  align-items: stretch;
+}
+
+.media {
+  margin: 0;
+  background: var(--white);
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 2vw, 2rem);
+}
+
+.media img {
+  max-height: min(70vh, 640px);
+  width: auto;
+}
+
+@media (max-width: 860px) {
+  .main {
+    grid-template-columns: 1fr;
+  }
+}

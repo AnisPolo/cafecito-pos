@@ -1,0 +1,23 @@
+.order {
+  position: relative;
+  display: inline-block;
+}
+
+.cup {
+  width: clamp(30px, 2.6vw, 40px);
+}
+
+.badge {
+  position: absolute;
+  right: -30%;
+  bottom: -6%;
+  width: 1.55em;
+  height: 1.55em;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--green);
+  color: var(--cream);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}

@@ -1,0 +1,14 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.1em;
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: var(--fs-lg);
+  font-weight: 500;
+}
+
+.arrow {
+  width: 0.45em;
+  flex-shrink: 0;
+}

@@ -1,0 +1,29 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--amber);
+  border-radius: var(--radius-pill);
+  padding: 0.55rem 1.4rem;
+  width: clamp(200px, 26vw, 400px);
+}
+
+.bar input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: transparent;
+  outline: none;
+  color: var(--brown-deep);
+  font-size: var(--fs-md);
+}
+
+.bar input::placeholder {
+  color: var(--brown-deep);
+  opacity: 0.75;
+}
+
+.icon {
+  width: 20px;
+  flex-shrink: 0;
+}

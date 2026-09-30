@@ -1,0 +1,36 @@
+/* Tokens del sistema de diseño Coffee House
+   Colores extraídos de ref_img/color pallete.png */
+
+:root {
+  /* Paleta */
+  --cream: #fae5c8;
+  --brown: #894d29;
+  --brown-deep: #5c3a21;
+  --copper: #cd7132;
+  --amber: #eaa54a;
+  --orange: #dc703f;
+  --sage: #c8ccbb;
+  --olive: #b7af77;
+  --green: #656a56;
+  --white: #ffffff;
+
+  /* Tipografías */
+  --font-display: 'Leckerli One', cursive;
+  --font-body: 'Montserrat', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Escala tipográfica (fluida sobre un lienzo de 1440px) */
+  --fs-hero: clamp(2rem, 3.6vw, 3.25rem);
+  --fs-xl: clamp(1.5rem, 2.4vw, 2.25rem);
+  --fs-lg: clamp(1.15rem, 1.6vw, 1.5rem);
+  --fs-md: clamp(1rem, 1.2vw, 1.125rem);
+  --fs-sm: clamp(0.875rem, 1vw, 1rem);
+  --fs-xs: clamp(0.75rem, 0.85vw, 0.875rem);
+
+  /* Ritmo y formas */
+  --gutter: clamp(1.5rem, 4vw, 4rem);
+  --radius-pill: 999px;
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --shadow-soft: 0 10px 24px rgba(92, 58, 33, 0.18);
+  --max-width: 1440px;
+}

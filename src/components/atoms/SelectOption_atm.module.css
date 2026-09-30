@@ -1,0 +1,25 @@
+.option {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  font-size: var(--fs-lg);
+  color: var(--brown-deep);
+}
+
+.dot {
+  width: 1.15em;
+  height: 1.15em;
+  border: 3px solid var(--brown);
+  border-radius: 50%;
+  background: transparent;
+  flex-shrink: 0;
+}
+
+.selected {
+  background: var(--amber);
+  box-shadow: inset 0 0 0 2px var(--cream);
+}
+
+.label {
+  line-height: 1;
+}

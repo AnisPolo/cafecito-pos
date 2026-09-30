@@ -1,0 +1,24 @@
+.profile {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  width: clamp(38px, 3.4vw, 52px);
+  height: clamp(38px, 3.4vw, 52px);
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1;
+  color: var(--brown);
+  white-space: nowrap;
+}
+
+.highlighted {
+  background: var(--orange);
+  color: var(--cream);
+  padding: 0.4em 0.7em 0.5em;
+}

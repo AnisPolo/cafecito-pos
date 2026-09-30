@@ -1,0 +1,19 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4em;
+  background: var(--amber);
+  border-radius: var(--radius-pill);
+  padding: 0.4em 2.2em 0.4em 1.1em;
+}
+
+.icon {
+  width: 2.3em;
+}
+
+.label {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  line-height: 1;
+  color: var(--cream);
+}

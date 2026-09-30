@@ -1,0 +1,74 @@
+.banner {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(320px, 30vw, 560px);
+  display: flex;
+  align-items: center;
+  background: var(--orange);
+  overflow: hidden;
+}
+
+/* La foto solo ocupa la mitad derecha: es el trozo que la curva naranja deja ver */
+.photo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 55%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+}
+
+/* Recorte curvo del bloque naranja, calcado del ref */
+.shape {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.content {
+  position: relative;
+  z-index: 3;
+  width: min(52%, 720px);
+  padding: clamp(2rem, 4vw, 4rem) 0 clamp(2rem, 4vw, 4rem) var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.25rem, 2.5vw, 2.25rem);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--fs-hero);
+  line-height: 1;
+  color: var(--cream);
+}
+
+.body {
+  color: var(--cream);
+  font-size: var(--fs-lg);
+  line-height: 1.45;
+  max-width: 34ch;
+}
+
+@media (max-width: 860px) {
+  .banner {
+    align-items: stretch;
+  }
+
+  .content {
+    width: 100%;
+    padding-right: var(--gutter);
+    background: var(--orange);
+  }
+
+  .shape,
+  .photo {
+    display: none;
+  }
+}

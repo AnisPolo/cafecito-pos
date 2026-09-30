@@ -1,0 +1,23 @@
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.label {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--brown-deep);
+}
+
+.options {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  gap: 0.9rem clamp(1.5rem, 3vw, 3.5rem);
+}
+
+@media (max-width: 720px) {
+  .options {
+    grid-template-columns: repeat(2, max-content);
+  }
+}

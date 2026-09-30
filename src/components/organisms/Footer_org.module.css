@@ -1,0 +1,33 @@
+.footer {
+  display: grid;
+  grid-template-columns: 0.75fr 1.25fr;
+  background: var(--sage);
+  min-height: clamp(280px, 26vw, 420px);
+}
+
+.contacts {
+  display: flex;
+  align-items: center;
+  padding: clamp(2rem, 4vw, 4rem) var(--gutter);
+}
+
+.map {
+  overflow: hidden;
+}
+
+.map img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+}
+
+@media (max-width: 860px) {
+  .footer {
+    grid-template-columns: 1fr;
+  }
+
+  .map {
+    min-height: 240px;
+  }
+}

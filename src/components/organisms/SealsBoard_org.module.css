@@ -1,0 +1,6 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  justify-items: center;
+  gap: clamp(0.75rem, 2vw, 1.75rem);
+}
