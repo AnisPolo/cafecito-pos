@@ -12,12 +12,12 @@ const userSchema = new mongoose.Schema(
         },
         password: {
             type: String,
-            required: true,
-            
+            required: true
         },
         role: {
             type: String, enum:["admin", "client"],
-            default: "client"
+            default: "client",
+            required: true
         },
         createdAt: {
             type: Date,
@@ -30,7 +30,8 @@ const userSchema = new mongoose.Schema(
         discountPercentage: {
             type:Number,
             default:0,
-            validate: {validator: (v) => v >= 0 && v <= 100, message: "El descuento debe estar entre 0 y 100"}
+            validate: {validator: (v) => v >= 0 && v <= 100, message: "El descuento debe estar entre 0 y 100"},
+            required: true
         },
 
     }
