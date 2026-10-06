@@ -25,6 +25,7 @@ const cartSchema = new mongoose.Schema({
     store: {
         type: String,
         required: true,
+        default: "Aguascalientes, zona centro"
     },
     status: {
         type: String,

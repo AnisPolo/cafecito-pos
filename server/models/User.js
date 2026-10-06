@@ -1,4 +1,13 @@
 import mongoose from "mongoose";
+/*
+{ 
+"name": "UsuarioAdmin 1",
+"email": "usuarioAdmin1@hotmail.com",
+"password": "papaya",
+"role": "admin",
+"discountPercentage": 0
+}
+*/
 
 const userSchema = new mongoose.Schema(
     {
