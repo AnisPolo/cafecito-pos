@@ -1,4 +1,4 @@
-import OrderHistory from "../models/OrderHistory";
+import OrderHistory from "../models/OrderHistory.js";
 
 export const createOrderHistory = async (req, res) => {
     try {
