@@ -18,6 +18,9 @@ npm run build     # compila a dist/
 npm run preview   # sirve el build ya compilado
 ```
 
+La API (Express + MongoDB, con autenticación JWT) vive en `server/`; su guía está en
+[server/README.md](server/README.md).
+
 ## Pantallas
 
 | Ruta | Página | Referencia |
