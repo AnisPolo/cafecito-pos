@@ -9,7 +9,7 @@ export default function MainProducts_org({ products }) {
     <section className={styles.band}>
       <div className={styles.track}>
         {products.map((product) => (
-          <Link className={styles.item} key={product.id} to="/producto">
+          <Link className={styles.item} key={product.id} to={`/producto/${product.id}`}>
             <Product_mol product={product} withPlus={false} />
           </Link>
         ))}

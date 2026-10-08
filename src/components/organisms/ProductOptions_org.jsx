@@ -5,8 +5,9 @@ import CreamGroup_mol from '../molecules/CreamGroup_mol'
 import PaymentBtn_atm from '../atoms/PaymentBtn_atm'
 import styles from './ProductOptions_org.module.css'
 
-/* Columna de personalización del producto — ref_img/ProductPage.png */
-export default function ProductOptions_org({ product }) {
+/* Columna de personalización del producto — ref_img/ProductPage.png
+   Los grupos que el producto no tiene (p. ej. postres) no se muestran. */
+export default function ProductOptions_org({ product, onMilk, onFlavor, onCream, onAdd }) {
   return (
     <section className={styles.options}>
       <h1 className={styles.title}>
@@ -14,11 +15,15 @@ export default function ProductOptions_org({ product }) {
           {product.name}
         </ProductName_atm>
       </h1>
-      <OptionGroup_mol label="Leche:" options={product.milkOptions} />
-      <FlavorGroup_mol label="Sabor:" options={product.flavorOptions} />
-      <CreamGroup_mol active={product.whippedCream} />
+      {product.milkOptions?.length > 0 && (
+        <OptionGroup_mol label="Leche:" options={product.milkOptions} onSelect={onMilk} />
+      )}
+      {product.flavorOptions?.length > 0 && (
+        <FlavorGroup_mol label="Sabor:" options={product.flavorOptions} onSelect={onFlavor} />
+      )}
+      {product.hasCream && <CreamGroup_mol active={product.whippedCream} onToggle={onCream} />}
       <div className={styles.action}>
-        <PaymentBtn_atm>Agregar al pedido</PaymentBtn_atm>
+        <PaymentBtn_atm onClick={onAdd}>Agregar al pedido</PaymentBtn_atm>
       </div>
     </section>
   )

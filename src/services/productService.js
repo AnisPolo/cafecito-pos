@@ -4,3 +4,9 @@ export async function getProducts() {
     return res.json();
 }
 
+export async function getProductById(id) {
+    const res = await fetch(`/api/product/${id}`);
+    if(!res.ok) throw new Error("producto no encontrado");
+    return res.json();
+}
+

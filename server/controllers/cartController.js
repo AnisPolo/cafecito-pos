@@ -1,28 +1,41 @@
 import Cart from "../models/Cart.js";
+import Product from "../models/Product.js";
 
 const isAdmin = (req) => req.user.role === "admin";
 // Admin ve todo; un cliente solo sus propios carritos.
 const scope = (req) => (isAdmin(req) ? {} : { user: req.user._id });
 
-export const createCart = async(req,res)=>{
-    try{
-        const {products, totalPrice, date, store} = req.body;
-        const admin = isAdmin(req);
-        const newCart = new Cart({
-            user: admin && req.body.user ? req.body.user : req.user._id,
-            products,
-            totalPrice,
-            date,
-            store,
-            status: admin ? req.body.status : undefined,
-        });
-        await newCart.save();
-        res.status(201).json({message: "Cart created successfully"});
-    } catch (error) {
-        console.log("Error creating cart:", error);
-        res.status(500).json({message: "failed to create cart"});
+export const createCart = async (req, res) => {
+  try {
+    const { items, store } = req.body;
+    if (!Array.isArray(items) || items.length === 0) {
+      return res.status(400).json({ message: "Cart is empty" });
     }
+
+    // precios reales desde la BD, nunca los del front
+    const found = await Product.find({ _id: { $in: items.map((i) => i.product) } });
+    const priceById = new Map(found.map((p) => [String(p._id), p.price]));
+
+    let subtotal = 0;
+    for (const item of items) {
+      const price = priceById.get(String(item.product));
+      if (price === undefined) {
+        return res.status(400).json({ message: "Invalid product in cart" });
+      }
+      subtotal += price * (item.quantity || 1);
+    }
+
+    const discount = req.user.discountPercentage || 0;
+    const totalPrice = Math.round(subtotal * (1 - discount / 100) * 100) / 100;
+
+    const cart = await Cart.create({ user: req.user._id, items, totalPrice, store });
+    res.status(201).json(cart);
+  } catch (error) {
+    console.log("Error creating cart:", error);
+    res.status(500).json({ message: "failed to create cart" });
+  }
 };
+
 
 export const getCarts = async(req,res)=>{
     try{

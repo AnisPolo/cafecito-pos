@@ -12,37 +12,45 @@ import mongoose from "mongoose";
  */
 
 const cartSchema = new mongoose.Schema({
-    user: {
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
+  items: [
+    {
+      product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Product",
         required: true,
+      },
+      quantity: { type: Number, default: 1, min: 1 },
+      milk: String,
+      size: String,
+      flavor: String,
+      whippedCream: { type: Boolean, default: false },
     },
-    products: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product",
-            required: true,
-        },
-    ],
-    totalPrice: {
-        type: Number,
-        required: true,
-        validate: (v) => v >= 0,
-    },
-    date: {
-        type: Date,
-        default: Date.now,
-    },
-    store: {
-        type: String,
-        required: true,
-        default: "Aguascalientes, zona centro"
-    },
-    status: {
-        type: String,
-        enum: ["pending", "ready", "served"],
-        default: "pending",
-    },
+  ],
+
+  totalPrice: {
+    type: Number,
+    required: true,
+    validate: (v) => v >= 0,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  store: {
+    type: String,
+    required: true,
+    default: "Aguascalientes, zona centro",
+  },
+  status: {
+    type: String,
+    enum: ["pending", "ready", "served"],
+    default: "pending",
+  },
 });
 
 const Cart = mongoose.model("Cart", cartSchema);

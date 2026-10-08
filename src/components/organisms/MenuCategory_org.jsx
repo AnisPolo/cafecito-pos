@@ -11,7 +11,7 @@ export default function MenuCategory_org({ title, products, tone = 'hot' }) {
       <SectionTitle_atm>{title}</SectionTitle_atm>
       <div className={styles.grid}>
         {products.map((product) => (
-          <Link className={styles.item} key={product.id} to="/producto">
+          <Link className={styles.item} key={product.id} to={`/producto/${product.id}`}>
             <Product_mol product={product} />
           </Link>
         ))}
