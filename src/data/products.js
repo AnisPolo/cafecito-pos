@@ -1,14 +1,16 @@
-import americano from '../assets/img/products/americano.png'
-import espresso from '../assets/img/products/espresso.png'
-import capuchino from '../assets/img/products/capuchino.png'
-import latte from '../assets/img/products/latte.png'
-import icedLatte from '../assets/img/products/iced_latte.png'
-import frappe from '../assets/img/products/frappe.png'
-import tisana from '../assets/img/products/tisana.png'
-import smoothie from '../assets/img/products/smoothie.png'
-import bananaPie from '../assets/img/products/banana_pie.png'
-import cheescake from '../assets/img/products/cheescake.png'
-import productImg from '../assets/img/products/Product_Img.png'
+const img = (file) => `/img/products/${file}`
+
+const americano = img(`americano.png`);
+const espresso = img(`espresso.png`);
+const capuchino = img(`capuchino.png`);
+const latte = img(`latte.png`);
+const icedLatte = img(`iced_latte.png`);
+const frappe = img(`frappe.png`);
+const tisana = img(`tisana.png`);
+const smoothie = img(`smoothie.png`);
+const bananaPie = img(`banana_pie.png`);
+const cheescake = img(`cheescake.png`);
+const productImg = img(`frappe.png`);
 
 /* Datos estáticos: la maqueta no tiene lógica, solo alimenta a los componentes */
 

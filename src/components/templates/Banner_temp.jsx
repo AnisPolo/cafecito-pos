@@ -1,5 +1,4 @@
 import Register_atm from '../atoms/Register_atm'
-import bannerPhoto from '../../assets/img/banner_coffee.jpg'
 import styles from './Banner_temp.module.css'
 
 /* Banner de descuento: panel naranja con borde curvo sobre la foto
@@ -7,7 +6,7 @@ import styles from './Banner_temp.module.css'
 export default function Banner_temp({ title, body, cta }) {
   return (
     <section className={styles.banner}>
-      <img className={styles.photo} src={bannerPhoto} alt="" />
+      <img className={styles.photo} src="/img/banner_coffee.jpg" alt="" />
       <svg
         className={styles.shape}
         viewBox="0 0 1000 280"
