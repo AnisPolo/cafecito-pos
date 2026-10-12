@@ -4,6 +4,7 @@ import CartTemplate_temp from '../components/templates/CartTemplate_temp'
 import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 import { createCart } from '../services/cartService'
+import { useMe } from '../hooks/useMe'
 
 /* ref_img/CartPage.png */
 export default function CartPage() {
@@ -12,9 +13,10 @@ export default function CartPage() {
   const navigate = useNavigate()
   const [paying, setPaying] = useState(false)
   const [message, setMessage] = useState('')
+  const me = useMe()
 
   // el servidor recalcula el total real; aquí solo se muestra el estimado con descuento
-  const discount = user?.discountPercentage || 0
+  const discount = me?.discountPercentage ?? 0
   const shownTotal = Math.round(total * (1 - discount / 100) * 100) / 100
 
   const pay = async () => {

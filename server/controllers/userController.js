@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import Cart from "../models/Cart.js";
+import { getDiscount, getNextTier } from "../middleware/discountVerify.js";
 
 const generatePassword = async (password) => {
   const salt = 10;
@@ -131,6 +133,27 @@ const deleteUser = async(req,res)=>{
         console.log("Error deleting user:", error);
         res.status(500).json({message: "failed to delete user"});
     }
+};
+
+export const getMe = async (req, res) => {
+  try {
+    const purchasesCount = await Cart.countDocuments({ user: req.user._id });
+    const next = getNextTier(purchasesCount);
+    res.status(200).json({
+      id: req.user._id,
+      name: req.user.name,
+      email: req.user.email,
+      role: req.user.role,
+      purchasesCount,
+      discountPercentage: getDiscount(purchasesCount),
+      next: next && {
+        discountPercentage: next.discount,
+        purchasesNeeded: next.min - purchasesCount,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({ message: "failed to get profile" });
+  }
 };
 
 export {registerUser, loginUser, createUser, getUsers, getUserById, updateUserDiscount, deleteUser};

@@ -1,5 +1,7 @@
 import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
+import User from "../models/User.js";
+import { getDiscount } from "../middleware/discountVerify.js";
 
 const isAdmin = (req) => req.user.role === "admin";
 // Admin ve todo; un cliente solo sus propios carritos.
@@ -13,7 +15,9 @@ export const createCart = async (req, res) => {
     }
 
     // precios reales desde la BD, nunca los del front
-    const found = await Product.find({ _id: { $in: items.map((i) => i.product) } });
+    const found = await Product.find({
+      _id: { $in: items.map((i) => i.product) },
+    });
     const priceById = new Map(found.map((p) => [String(p._id), p.price]));
 
     let subtotal = 0;
@@ -25,10 +29,21 @@ export const createCart = async (req, res) => {
       subtotal += price * (item.quantity || 1);
     }
 
-    const discount = req.user.discountPercentage || 0;
+    const discount = req.discount;
     const totalPrice = Math.round(subtotal * (1 - discount / 100) * 100) / 100;
 
-    const cart = await Cart.create({ user: req.user._id, items, totalPrice, store });
+    const cart = await Cart.create({
+      user: req.user._id,
+      items,
+      totalPrice,
+      store,
+      discountApplied: discount,
+    });
+    // se puede llamar al user por req.user.discount
+    // la próxima compra ya tendrá el tramo nuevo; deja el campo del usuario al día
+    await User.findByIdAndUpdate(req.user._id, {
+      discountPercentage: getDiscount(req.purchasesCount + 1),
+    });
     res.status(201).json(cart);
   } catch (error) {
     console.log("Error creating cart:", error);
@@ -36,57 +51,66 @@ export const createCart = async (req, res) => {
   }
 };
 
-
-export const getCarts = async(req,res)=>{
-    try{
-        const carts = await Cart.find(scope(req)).populate("user", "name");
-        res.status(200).json(carts);
-    } catch (error) {
-        console.log("Error getting carts:", error);
-        res.status(500).json({message: "failed to get carts"});
-    }
+export const getCarts = async (req, res) => {
+  try {
+    const carts = await Cart.find(scope(req)).populate("user", "name");
+    res.status(200).json(carts);
+  } catch (error) {
+    console.log("Error getting carts:", error);
+    res.status(500).json({ message: "failed to get carts" });
+  }
 };
 
-export const getCartById = async(req,res)=>{
-    try{
-        const cart = await Cart.findOne({_id: req.params.id, ...scope(req)}).populate("user", "name");
-        if(!cart){
-            return res.status(404).json({message: "Cart not found"});
-        }
-        res.status(200).json(cart);
-    } catch (error) {
-        console.log("Error getting cart by id:", error);
-        res.status(500).json({message: "failed to get cart by id"});
+export const getCartById = async (req, res) => {
+  try {
+    const cart = await Cart.findOne({
+      _id: req.params.id,
+      ...scope(req),
+    }).populate("user", "name");
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
     }
+    res.status(200).json(cart);
+  } catch (error) {
+    console.log("Error getting cart by id:", error);
+    res.status(500).json({ message: "failed to get cart by id" });
+  }
 };
 
-export const updateCart = async(req,res)=>{
-    try{
-        const {products, totalPrice, store} = req.body;
-        // Un cliente no puede reasignar el carrito ni cambiar su estado.
-        const changes = isAdmin(req) ? req.body : {products, totalPrice, store};
-        const cart = await Cart.findOneAndUpdate({_id: req.params.id, ...scope(req)}, changes, {
-            new: true,
-        });
-        if(!cart){
-            return res.status(404).json({message: "Cart not found"});
-        }
-        res.status(200).json({message: "Cart updated successfully"});
-    } catch (error) {
-        console.log("Error updating cart:", error);
-        res.status(500).json({message: "failed to update cart"});
+export const updateCart = async (req, res) => {
+  try {
+    const { products, totalPrice, store } = req.body;
+    // Un cliente no puede reasignar el carrito ni cambiar su estado.
+    const changes = isAdmin(req) ? req.body : { products, totalPrice, store };
+    const cart = await Cart.findOneAndUpdate(
+      { _id: req.params.id, ...scope(req) },
+      changes,
+      {
+        new: true,
+      },
+    );
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
     }
+    res.status(200).json({ message: "Cart updated successfully" });
+  } catch (error) {
+    console.log("Error updating cart:", error);
+    res.status(500).json({ message: "failed to update cart" });
+  }
 };
 
-export const deleteCart = async(req,res)=>{
-    try{
-        const cart = await Cart.findOneAndDelete({_id: req.params.id, ...scope(req)});
-        if(!cart){
-            return res.status(404).json({message: "Cart not found"});
-        }
-        res.status(200).json({message: "Cart deleted successfully"});
-    } catch (error) {
-        console.log("Error deleting cart:", error);
-        res.status(500).json({message: "failed to delete cart"});
+export const deleteCart = async (req, res) => {
+  try {
+    const cart = await Cart.findOneAndDelete({
+      _id: req.params.id,
+      ...scope(req),
+    });
+    if (!cart) {
+      return res.status(404).json({ message: "Cart not found" });
     }
+    res.status(200).json({ message: "Cart deleted successfully" });
+  } catch (error) {
+    console.log("Error deleting cart:", error);
+    res.status(500).json({ message: "failed to delete cart" });
+  }
 };

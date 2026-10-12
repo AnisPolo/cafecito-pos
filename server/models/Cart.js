@@ -51,6 +51,7 @@ const cartSchema = new mongoose.Schema({
     enum: ["pending", "ready", "served"],
     default: "pending",
   },
+  discountApplied: { type: Number, default: 0 }
 });
 
 const Cart = mongoose.model("Cart", cartSchema);

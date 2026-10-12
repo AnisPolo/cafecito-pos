@@ -1,5 +1,6 @@
 import OrderHistory from "../models/OrderHistory.js";
 import Cart from "../models/Cart.js";
+import User from "../models/User.js";
 
 const isAdmin = (req) => req.user.role === "admin";
 // Admin ve todo; un cliente solo sus propias órdenes.
@@ -82,3 +83,4 @@ export const deleteOrderHistory = async (req, res) => {
         res.status(500).json({ message: "failed to delete order history" });
     }
 };
+    

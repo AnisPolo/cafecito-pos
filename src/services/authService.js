@@ -16,3 +16,17 @@ export function login(email, password) {
 export function register(name, email, password) {
   return post("/api/user/register", { name, email, password });
 }
+
+export async function getMe(token) {
+  const res = await fetch("/api/user/me", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const error = new Error(data.message || "No se pudo cargar tu perfil");
+    error.status = res.status;   // para detectar el 401 (token vencido)
+    throw error;
+  }
+  return data;
+}
+
