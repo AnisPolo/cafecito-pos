@@ -5,12 +5,12 @@ import OrdersHistory_org from '../organisms/OrdersHistory_org'
 import styles from './ProfileTemplate_temp.module.css'
 
 /* Layout del perfil — ref_img/ProfilePage.png */
-export default function ProfileTemplate_temp({ profile, orders }) {
+export default function ProfileTemplate_temp({ profile, orders, onLogout }) {
   return (
     <div className={styles.page}>
       <Header_temp active="perfil" searchValue="Taro" />
       <main className={styles.main}>
-        <ProfileCard_org profile={profile} />
+        <ProfileCard_org profile={profile} onLogout={onLogout} />
         <div className={styles.right}>
           <SealsBoard_org total={profile.seals.total} filled={profile.seals.filled} />
           <OrdersHistory_org orders={orders} />

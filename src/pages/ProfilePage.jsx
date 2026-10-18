@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext'
 import { getMyCarts } from '../services/cartService'
 import { profile as profileBase } from '../data/products'
 import { useMe } from '../hooks/useMe'
+import { useCart } from '../context/CartContext'
 
 const SEALS_TOTAL = 15
 
@@ -12,6 +13,7 @@ const SEALS_TOTAL = 15
 export default function ProfilePage() {
   const me = useMe()
   const { token, user, logout } = useAuth()
+  const { clear } = useCart()
   const navigate = useNavigate()
   const [orders, setOrders] = useState([])
 
@@ -56,5 +58,11 @@ const profile = {
   seals: { total: SEALS_TOTAL, filled: Math.min(me.purchasesCount, SEALS_TOTAL) },
 }
 
-  return <ProfileTemplate_temp profile={profile} orders={orders} />
+  const handleLogout = () => {
+    logout()
+    clear()
+    navigate('/')
+  }
+
+  return <ProfileTemplate_temp profile={profile} orders={orders} onLogout={handleLogout} />
 }

@@ -6,5 +6,17 @@
 }
 
 .name {
-  margin-bottom: clamp(1rem, 3vw, 2.5rem);
+  margin-bottom: clamp(0.25rem, 0.8vw, 0.75rem);
+}
+
+/* "Cerrar sesión": texto naranja pequeño bajo el nombre — ref_img/pantallas-09.png */
+.logout {
+  color: var(--orange);
+  font-size: var(--fs-md);
+  margin-bottom: clamp(0.5rem, 1.5vw, 1.25rem);
+}
+
+.logout:hover,
+.logout:focus-visible {
+  text-decoration: underline;
 }
