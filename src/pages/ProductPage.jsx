@@ -42,7 +42,7 @@ export default function ProductPage() {
     ...product,
     milkOptions: toOptions(product.milk, milk),
     flavorOptions: toOptions(product.flavor, flavor),
-    hasCream: product.category !== 'pastry',
+    hasCream: product.whippedCream,
     whippedCream: cream,
   }
 
