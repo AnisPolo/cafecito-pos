@@ -37,3 +37,9 @@ export const requireSelfOrAdmin = (req, res, next) => {
   }
   return res.status(403).json({ message: "Forbidden" });
 };
+
+// Sesión opcional: sin token sigue como invitado; con token se valida igual que `protect`.
+export const optionalAuth = (req, res, next) => {
+  if (!req.headers.authorization) return next();
+  return protect(req, res, next);
+};

@@ -1,10 +1,13 @@
 import styles from './ReceiptName_atm.module.css'
 
-/* Nombre del ticket — ref_img/1x/receiptName_atm.png */
-export default function ReceiptName_atm({ placeholder = 'Nombre mi perfil' }) {
+/* Nombre del ticket — ref_img/1x/receiptName_atm.png
+   Solo lectura: muestra el nombre del usuario con sesión o "Invitado". */
+export default function ReceiptName_atm({ name = 'Invitado' }) {
   return (
     <div className={styles.field}>
-      <input type="text" placeholder={placeholder} aria-label="Nombre para el pedido" />
+      <p className={styles.name} aria-label="Nombre para el pedido">
+        {name}
+      </p>
     </div>
   )
 }

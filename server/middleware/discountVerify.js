@@ -18,6 +18,12 @@ export const getNextTier = (purchasesCount) =>
 // Calcula las compras previas y el descuento que aplica a la compra actual
 export const discountVerify = async (req, res, next) => {
   try {
+    // Invitado: sin compras previas y sin descuento
+    if (!req.user) {
+      req.purchasesCount = 0;
+      req.discount = 0;
+      return next();
+    }
     req.purchasesCount = await Cart.countDocuments({ user: req.user._id });
     req.discount = getDiscount(req.purchasesCount);
     next();

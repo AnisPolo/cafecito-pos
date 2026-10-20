@@ -15,8 +15,15 @@ const cartSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
-    required: true,
+    // los pedidos de invitado no tienen usuario
+    required: function () {
+      return !this.isGuest;
+    },
   },
+  isGuest: { type: Boolean, default: false },
+  guestName: String,
+  // número de referencia del pedido, p. ej. "CF-7K3F9Q"
+  orderNumber: { type: String, unique: true, sparse: true },
   items: [
     {
       product: {

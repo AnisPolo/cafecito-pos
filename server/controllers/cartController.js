@@ -2,6 +2,7 @@ import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
 import User from "../models/User.js";
 import { getDiscount } from "../middleware/discountVerify.js";
+import { generateOrderNumber } from "../utils/orderNumber.js";
 
 const isAdmin = (req) => req.user.role === "admin";
 // Admin ve todo; un cliente solo sus propios carritos.
@@ -32,18 +33,36 @@ export const createCart = async (req, res) => {
     const discount = req.discount;
     const totalPrice = Math.round(subtotal * (1 - discount / 100) * 100) / 100;
 
-    const cart = await Cart.create({
-      user: req.user._id,
-      items,
-      totalPrice,
-      store,
-      discountApplied: discount,
-    });
-    // se puede llamar al user por req.user.discount
+    // sin sesión (req.user vacío) el pedido se registra como invitado
+    const isGuest = !req.user;
+
+    // el número de referencia es único; si chocara con otro, se reintenta con uno nuevo
+    let cart;
+    for (let attempt = 1; !cart; attempt++) {
+      try {
+        cart = await Cart.create({
+          user: isGuest ? undefined : req.user._id,
+          isGuest,
+          guestName: isGuest ? "Invitado" : undefined,
+          orderNumber: generateOrderNumber(),
+          items,
+          totalPrice,
+          store,
+          discountApplied: discount,
+        });
+      } catch (error) {
+        const duplicatedNumber = error.code === 11000 && error.keyPattern?.orderNumber;
+        if (!duplicatedNumber || attempt >= 5) throw error;
+      }
+    }
+
     // la próxima compra ya tendrá el tramo nuevo; deja el campo del usuario al día
-    await User.findByIdAndUpdate(req.user._id, {
-      discountPercentage: getDiscount(req.purchasesCount + 1),
-    });
+    // (los invitados no acumulan compras)
+    if (!isGuest) {
+      await User.findByIdAndUpdate(req.user._id, {
+        discountPercentage: getDiscount(req.purchasesCount + 1),
+      });
+    }
     res.status(201).json(cart);
   } catch (error) {
     console.log("Error creating cart:", error);

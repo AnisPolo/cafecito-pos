@@ -4,9 +4,12 @@ const authHeaders = (token) => ({
 });
 
 export async function createCart(items, token) {
+  // sin token el pedido se registra como invitado
   const res = await fetch("/api/cart", {
     method: "POST",
-    headers: authHeaders(token),
+    headers: token
+      ? authHeaders(token)
+      : { "Content-Type": "application/json" },
     body: JSON.stringify({
       items: items.map((i) => ({
         product: i.productId,
