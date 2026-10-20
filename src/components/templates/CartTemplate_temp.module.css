@@ -16,8 +16,3 @@
     grid-template-columns: 1fr;
   }
 }
-
-/* Confirmación del pedido: una sola columna centrada */
-.single {
-  grid-template-columns: 1fr;
-}
