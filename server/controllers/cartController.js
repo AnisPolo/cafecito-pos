@@ -19,16 +19,31 @@ export const createCart = async (req, res) => {
     const found = await Product.find({
       _id: { $in: items.map((i) => i.product) },
     });
-    const priceById = new Map(found.map((p) => [String(p._id), p.price]));
+    const productById = new Map(found.map((p) => [String(p._id), p]));
 
     let subtotal = 0;
     for (const item of items) {
-      const price = priceById.get(String(item.product));
-      if (price === undefined) {
+      const product = productById.get(String(item.product));
+      if (!product) {
         return res.status(400).json({ message: "Invalid product in cart" });
       }
-      subtotal += price * (item.quantity || 1);
+      subtotal += product.price * (item.quantity || 1);
     }
+
+    // nombre y precio se toman de la BD (nunca del body) y quedan guardados en el pedido
+    const savedItems = items.map((item) => {
+      const product = productById.get(String(item.product));
+      return {
+        product: item.product,
+        quantity: item.quantity,
+        milk: item.milk,
+        size: item.size,
+        flavor: item.flavor,
+        whippedCream: item.whippedCream,
+        name: product.name,
+        price: product.price,
+      };
+    });
 
     const discount = req.discount;
     const totalPrice = Math.round(subtotal * (1 - discount / 100) * 100) / 100;
@@ -45,7 +60,7 @@ export const createCart = async (req, res) => {
           isGuest,
           guestName: isGuest ? "Invitado" : undefined,
           orderNumber: generateOrderNumber(),
-          items,
+          items: savedItems,
           totalPrice,
           store,
           discountApplied: discount,
@@ -72,7 +87,10 @@ export const createCart = async (req, res) => {
 
 export const getCarts = async (req, res) => {
   try {
-    const carts = await Cart.find(scope(req)).populate("user", "name");
+    // items.product: respaldo de nombre y precio para pedidos anteriores a la captura
+    const carts = await Cart.find(scope(req))
+      .populate("user", "name")
+      .populate("items.product", "name price");
     res.status(200).json(carts);
   } catch (error) {
     console.log("Error getting carts:", error);
@@ -85,7 +103,9 @@ export const getCartById = async (req, res) => {
     const cart = await Cart.findOne({
       _id: req.params.id,
       ...scope(req),
-    }).populate("user", "name");
+    })
+      .populate("user", "name")
+      .populate("items.product", "name price");
     if (!cart) {
       return res.status(404).json({ message: "Cart not found" });
     }

@@ -60,7 +60,9 @@ export default function OrderReceipt_org({ orderNumber, name, items, discountAmo
                     {item.name}
                     {item.quantity > 1 ? ` x${item.quantity}` : ''}
                   </h3>
-                  <span className={styles.itemPrice}>{money(item.price * item.quantity)}</span>
+                  <span className={styles.itemPrice}>
+                    {item.unavailable ? '—' : money(item.price * item.quantity)}
+                  </span>
                 </header>
                 {(rows.length > 0 || hasDiscount) && (
                   <dl className={styles.specs}>

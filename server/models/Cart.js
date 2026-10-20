@@ -31,6 +31,9 @@ const cartSchema = new mongoose.Schema({
         ref: "Product",
         required: true,
       },
+      // captura del momento de la compra: el ticket histórico no cambia si cambia el precio
+      name: String,
+      price: Number,
       quantity: { type: Number, default: 1, min: 1 },
       milk: String,
       size: String,

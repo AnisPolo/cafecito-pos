@@ -1,10 +1,30 @@
+.item {
+  border-bottom: 1px solid var(--brown);
+}
+
 .row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   gap: 1rem;
+  width: 100%;
   padding: 0.9rem 0;
-  border-bottom: 1px solid var(--brown);
   font-size: var(--fs-xl);
   color: var(--brown);
+  text-align: left;
+}
+
+/* Fila que abre el ticket: se nota que se puede pulsar */
+.button {
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus-visible {
+  color: var(--orange);
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
 }

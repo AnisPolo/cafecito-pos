@@ -5,6 +5,7 @@ import { useCart } from '../context/CartContext'
 import { useAuth } from '../context/AuthContext'
 import { createCart } from '../services/cartService'
 import { useMe } from '../hooks/useMe'
+import { buildTicket } from '../utils/ticket'
 
 const STORAGE_KEY = 'lastOrder'
 
@@ -43,17 +44,12 @@ export default function CartPage() {
       const lines = items.map((i) => ({ ...i }))
       const order = await createCart(items, token)
 
-      const subtotal = lines.reduce((sum, i) => sum + i.price * i.quantity, 0)
-      const percent = order.discountApplied ?? 0
-      const ticket = {
+      const ticket = buildTicket({
         orderNumber: order.orderNumber,
         total: order.totalPrice,                          // el que cobró el servidor
-        discountAmount: Math.max(subtotal - order.totalPrice, 0),
-        items: lines.map((i) => ({
-          ...i,
-          discount: (i.price * i.quantity * percent) / 100, // parte del descuento de este producto
-        })),
-      }
+        discountPercent: order.discountApplied ?? 0,
+        items: lines,
+      })
 
       clear()
       saveConfirmation(ticket)
