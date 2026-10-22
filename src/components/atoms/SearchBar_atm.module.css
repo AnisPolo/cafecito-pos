@@ -27,3 +27,17 @@
   width: 20px;
   flex-shrink: 0;
 }
+
+/* La lupa es el botón de envío: sin estilos de botón, mismo aspecto que antes */
+.submit {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.submit:focus-visible {
+  outline: 2px solid var(--brown-deep);
+  outline-offset: 3px;
+  border-radius: 50%;
+}

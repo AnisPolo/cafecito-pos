@@ -13,3 +13,35 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Hueco de una categoría sin resultados: sin fondo; en pantallas angostas no ocupa espacio */
+.spacer {
+  min-height: 1px;
+}
+
+@media (max-width: 860px) {
+  .spacer {
+    display: none;
+  }
+}
+
+/* Búsqueda sin resultados */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: clamp(3rem, 8vw, 6rem) var(--gutter);
+  text-align: center;
+}
+
+.emptyText {
+  font-size: var(--fs-xl);
+  color: var(--brown);
+}
+
+.clear {
+  color: var(--orange);
+  font-size: var(--fs-md);
+  text-decoration: underline;
+}

@@ -21,7 +21,7 @@ export default function CartTemplate_temp({
 }) {
   return (
     <div className={styles.page}>
-      <Header_temp active="perfil" searchValue="Taro" />
+      <Header_temp active="perfil" />
       <main className={styles.main}>
         <ProductListing_org items={items} onRemove={onRemove} />
         <CartSummary_org

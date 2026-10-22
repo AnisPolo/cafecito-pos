@@ -7,7 +7,7 @@ import styles from './ProductTemplate_temp.module.css'
 export default function ProductTemplate_temp({ product, onMilk, onFlavor, onCream, onAdd }) {
   return (
     <div className={styles.page}>
-      <Header_temp searchValue="Taro" />
+      <Header_temp />
       <main className={styles.main}>
         <figure className={styles.media}>
           <img src={product.image} alt={product.name} />

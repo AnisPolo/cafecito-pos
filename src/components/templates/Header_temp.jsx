@@ -8,11 +8,11 @@ import styles from './Header_temp.module.css'
 /* Cabecera común a las 5 pantallas — ref_img/1x/Header_temp.png
    `active` decide qué elemento lleva la caja naranja.
    El contador del pedido sale del carrito. */
-export default function Header_temp({ active = null, searchValue = '' }) {
+export default function Header_temp({ active = null }) {
   const { count } = useCart()
   return (
     <header className={styles.header}>
-      <NavSearch_mol menuBoxed={active === 'menu'} searchValue={searchValue} />
+      <NavSearch_mol menuBoxed={active === 'menu'} />
       <Link className={styles.logo} to="/">
         <Logo_atm />
       </Link>

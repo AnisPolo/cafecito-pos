@@ -17,7 +17,7 @@ export default function ProfileTemplate_temp({
 }) {
   return (
     <div className={styles.page}>
-      <Header_temp active="perfil" searchValue="Taro" />
+      <Header_temp active="perfil" />
       <main className={styles.main}>
         <ProfileCard_org profile={profile} onLogout={onLogout} />
         <div className={styles.right}>
