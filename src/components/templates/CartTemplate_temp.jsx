@@ -8,6 +8,8 @@ import styles from './CartTemplate_temp.module.css'
    Si hay `confirmation` (pedido ya creado) el ticket aparece en una ventana encima. */
 export default function CartTemplate_temp({
   items,
+  subtotal,
+  discountAmount,
   total,
   onRemove,
   onPay,
@@ -22,7 +24,15 @@ export default function CartTemplate_temp({
       <Header_temp active="perfil" searchValue="Taro" />
       <main className={styles.main}>
         <ProductListing_org items={items} onRemove={onRemove} />
-        <CartSummary_org total={total} onPay={onPay} disabled={payDisabled} note={note} name={name} />
+        <CartSummary_org
+          subtotal={subtotal}
+          discountAmount={discountAmount}
+          total={total}
+          onPay={onPay}
+          disabled={payDisabled}
+          note={note}
+          name={name}
+        />
       </main>
       {confirmation && (
         <OrderReceipt_org

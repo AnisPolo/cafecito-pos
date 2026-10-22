@@ -1,12 +1,8 @@
 import { useEffect } from 'react'
+import { money } from '../../utils/money'
 import styles from './OrderReceipt_org.module.css'
 
 const LABELS = { full: 'Entera', deslactosada: 'Deslactosada' }
-
-const money = (n) => {
-  const rounded = Math.round(n * 100) / 100
-  return `$${Number.isInteger(rounded) ? rounded : rounded.toFixed(2)}`
-}
 
 // Filas de especificaciones; los productos sin leche (postres) no llevan
 const specRows = (item) => {

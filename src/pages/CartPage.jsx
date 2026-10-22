@@ -35,6 +35,7 @@ export default function CartPage() {
   // el servidor recalcula el total real; aquí solo se muestra el estimado con descuento
   const discount = me?.discountPercentage ?? 0
   const shownTotal = Math.round(total * (1 - discount / 100) * 100) / 100
+  const discountAmount = Math.max(total - shownTotal, 0)
 
   const pay = async () => {
     setPaying(true)
@@ -84,6 +85,8 @@ export default function CartPage() {
   return (
     <CartTemplate_temp
       items={items}
+      subtotal={total}
+      discountAmount={discountAmount}
       total={shownTotal}
       onRemove={removeItem}
       onPay={pay}

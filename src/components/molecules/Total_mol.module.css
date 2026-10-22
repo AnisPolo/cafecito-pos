@@ -39,3 +39,24 @@
   color: var(--brown-deep);
   padding: 0 clamp(0.5rem, 1.5vw, 1.5rem);
 }
+
+/* Subtotal y Descuento: filas juntas, letra grande de peso normal; el Total (abajo) va en negritas */
+.breakdown {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0 clamp(0.5rem, 1.5vw, 1.5rem);
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: var(--fs-xl);
+  font-weight: 400;
+  color: var(--brown-deep);
+}
+
+.discount {
+  color: var(--orange);
+}
