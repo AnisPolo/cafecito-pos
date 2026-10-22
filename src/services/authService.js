@@ -1,3 +1,13 @@
+// Mensajes del servidor traducidos; los que no estén aquí se muestran tal cual
+const MESSAGES = {
+  "Email already registered": "Este correo ya está registrado",
+  "Password must be at least 8 characters": "La contraseña debe tener al menos 8 caracteres",
+  "Name is required": "El nombre es obligatorio",
+  "A valid email is required": "Escribe un correo válido",
+  "Invalid credentials": "Correo o contraseña incorrectos",
+  "Email and password are required": "Escribe tu correo y tu contraseña",
+};
+
 async function post(url, body) {
   const res = await fetch(url, {
     method: "POST",
@@ -5,7 +15,9 @@ async function post(url, body) {
     body: JSON.stringify(body),
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.message || "No se pudo completar la solicitud");
+  if (!res.ok) {
+    throw new Error(MESSAGES[data.message] || data.message || "No se pudo completar la solicitud");
+  }
   return data;
 }
 

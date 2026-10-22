@@ -4,6 +4,9 @@ import User from "../models/User.js";
 import Cart from "../models/Cart.js";
 import { getDiscount, getNextTier } from "../middleware/discountVerify.js";
 
+// Validación básica de formato: algo@dominio.ext, sin espacios
+const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const generatePassword = async (password) => {
   const salt = 10;
   return await bcrypt.hash(password, salt);
@@ -18,6 +21,12 @@ const signToken = (user) =>
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
+    if (typeof name !== "string" || !name.trim()) {
+      return res.status(400).json({ message: "Name is required" });
+    }
+    if (typeof email !== "string" || !EMAIL_REGEX.test(email.trim())) {
+      return res.status(400).json({ message: "A valid email is required" });
+    }
     if (typeof password !== "string" || password.length < 8) {
       return res.status(400).json({ message: "Password must be at least 8 characters" });
     }
@@ -28,6 +37,9 @@ const registerUser = async (req, res) => {
   } catch (error) {
     if (error.code === 11000) {
       return res.status(409).json({ message: "Email already registered" });
+    }
+    if (error.name === "ValidationError") {
+      return res.status(400).json({ message: error.message });
     }
     console.log("Error registering user:", error);
     res.status(500).json({ message: "failed to register user" });
