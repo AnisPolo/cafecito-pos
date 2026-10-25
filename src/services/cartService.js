@@ -3,6 +3,12 @@ const authHeaders = (token) => ({
   Authorization: `Bearer ${token}`,
 });
 
+// Mensajes del servidor traducidos
+const MESSAGES = {
+  "Invalid product in cart": "Algún producto de tu pedido ya no está disponible. Quítalo e inténtalo de nuevo.",
+  "Cart is empty": "Tu pedido está vacío.",
+};
+
 export async function createCart(items, token) {
   // sin token el pedido se registra como invitado
   const res = await fetch("/api/cart", {
@@ -23,7 +29,7 @@ export async function createCart(items, token) {
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) {
-    const error = new Error(data.message || "No se pudo crear el pedido");
+    const error = new Error(MESSAGES[data.message] || data.message || "No se pudo crear el pedido");
     error.status = res.status;
     throw error;
   }

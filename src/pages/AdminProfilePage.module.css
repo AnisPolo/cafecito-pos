@@ -1,0 +1,19 @@
+/* "+" fino de la pestaña Productos (abre el formulario de producto nuevo) */
+.plus {
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1;
+  padding: 0 0.5rem;
+  color: var(--brown-deep);
+}
+
+.plus:hover,
+.plus:focus-visible {
+  color: var(--orange);
+}
+
+.note {
+  margin-top: clamp(1.5rem, 3vw, 3rem);
+  font-size: var(--fs-lg);
+  color: var(--brown);
+}

@@ -1,0 +1,35 @@
+.bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.tabs {
+  display: flex;
+  align-items: center;
+}
+
+.tab {
+  padding: 0.55rem 1.4rem;
+  font-size: var(--fs-xl);
+  color: var(--brown-deep);
+}
+
+/* pestaña elegida: caja naranja con letra crema en negritas */
+.active {
+  background: var(--orange);
+  color: var(--cream);
+  font-weight: 700;
+}
+
+.tab:focus-visible {
+  outline: 2px solid var(--brown-deep);
+  outline-offset: 2px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}

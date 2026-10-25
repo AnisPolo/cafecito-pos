@@ -16,8 +16,10 @@ export const createCart = async (req, res) => {
     }
 
     // precios reales desde la BD, nunca los del front
+    // solo productos activos: uno oculto por el admin ya no se puede comprar
     const found = await Product.find({
       _id: { $in: items.map((i) => i.product) },
+      active: { $ne: false },
     });
     const productById = new Map(found.map((p) => [String(p._id), p]));
 

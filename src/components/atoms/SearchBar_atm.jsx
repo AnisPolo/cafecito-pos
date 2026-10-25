@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom'
-import searchIcon from '../../assets/svg/search_icon.svg'
-import styles from './SearchBar_atm.module.css'
+import SearchField_atm from './SearchField_atm'
 
-/* Barra de búsqueda — ref_img/1x/searchBar_atm.png
+/* Barra de búsqueda del encabezado — ref_img/1x/searchBar_atm.png
    Enter o la lupa llevan a /menu?q=texto. Estando en /menu además filtra en vivo.
    El texto buscado vive en la URL (?q=), así que funciona con recargar y atrás/adelante. */
 export default function SearchBar_atm({ placeholder = 'Buscar' }) {
@@ -16,8 +15,7 @@ export default function SearchBar_atm({ placeholder = 'Buscar' }) {
   // atrás/adelante o "Quitar búsqueda" cambian ?q=: el campo se pone al día
   useEffect(() => setText(q), [q])
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = () => {
     const value = text.trim()
     navigate(value ? `/menu?q=${encodeURIComponent(value)}` : '/menu')
   }
@@ -30,17 +28,12 @@ export default function SearchBar_atm({ placeholder = 'Buscar' }) {
   }
 
   return (
-    <form className={styles.bar} role="search" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={text}
-        onChange={handleChange}
-        placeholder={placeholder}
-        aria-label="Buscar productos"
-      />
-      <button type="submit" className={styles.submit} aria-label="Buscar">
-        <img className={styles.icon} src={searchIcon} alt="" />
-      </button>
-    </form>
+    <SearchField_atm
+      value={text}
+      onChange={handleChange}
+      onSubmit={handleSubmit}
+      placeholder={placeholder}
+      label="Buscar productos"
+    />
   )
 }

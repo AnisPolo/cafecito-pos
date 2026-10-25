@@ -1,0 +1,38 @@
+.row {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.5rem);
+  padding: 1.25rem 0.5rem;
+  border-bottom: 1px solid var(--brown);
+}
+
+.avatar {
+  width: clamp(72px, 8vw, 120px);
+  aspect-ratio: 1;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.name {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--brown-deep);
+  overflow-wrap: anywhere;
+}
+
+.email {
+  font-size: var(--fs-xs);
+  color: var(--brown);
+  overflow-wrap: anywhere;
+}
+
+.hint {
+  font-size: var(--fs-md);
+  color: var(--orange);
+}

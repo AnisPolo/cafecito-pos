@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getProducts } from "../services/productService";
 
 export function useProducts(){
@@ -13,5 +13,8 @@ export function useProducts(){
             .finally(() => setLoading(false));
     }, []);
 
-    return {products, loading, error};
+    // vuelve a pedir la lista sin mostrar "Cargando..." (p. ej. tras crear o editar un producto)
+    const reload = useCallback(() => getProducts().then(setProducts), []);
+
+    return {products, loading, error, reload};
 }

@@ -168,4 +168,39 @@ export const getMe = async (req, res) => {
   }
 };
 
+// Solo admin: lista de clientes para consultar su descuento (no se edita nada).
+// El descuento sale de contar sus compras, igual que lo calcula el servidor al cobrar.
+export const getClients = async (req, res) => {
+  try {
+    const clients = await User.find({ role: "client" }).select("name email").sort({ name: 1 }).lean();
+
+    const counts = await Cart.aggregate([
+      { $match: { user: { $in: clients.map((c) => c._id) } } },
+      { $group: { _id: "$user", total: { $sum: 1 } } },
+    ]);
+    const totalByUser = new Map(counts.map((c) => [String(c._id), c.total]));
+
+    res.status(200).json(
+      clients.map((client) => {
+        const purchasesCount = totalByUser.get(String(client._id)) ?? 0;
+        const next = getNextTier(purchasesCount);
+        return {
+          id: client._id,
+          name: client.name,
+          email: client.email,
+          purchasesCount,
+          discountPercentage: getDiscount(purchasesCount),
+          next: next && {
+            discountPercentage: next.discount,
+            purchasesNeeded: next.min - purchasesCount,
+          },
+        };
+      })
+    );
+  } catch (error) {
+    console.log("Error getting clients:", error);
+    res.status(500).json({ message: "failed to get clients" });
+  }
+};
+
 export {registerUser, loginUser, createUser, getUsers, getUserById, updateUserDiscount, deleteUser};

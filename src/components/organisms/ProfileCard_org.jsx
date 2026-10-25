@@ -1,10 +1,10 @@
 import Avatar_atm from '../atoms/Avatar_atm'
 import ProductName_atm from '../atoms/ProductName_atm'
-import DiscountInfo_mol from '../molecules/DiscountInfo_mol'
 import styles from './ProfileCard_org.module.css'
 
-/* Columna izquierda del perfil — ref_img/pantallas-09.png (con "Cerrar sesión") */
-export default function ProfileCard_org({ profile, onLogout }) {
+/* Columna izquierda del perfil — ref_img/pantallas-09.png (con "Cerrar sesión")
+   children: lo que va debajo (cliente: descuento actual; admin: botón "Agregar Producto") */
+export default function ProfileCard_org({ profile, onLogout, children }) {
   return (
     <section className={styles.card}>
       <Avatar_atm />
@@ -18,7 +18,7 @@ export default function ProfileCard_org({ profile, onLogout }) {
           Cerrar sesión
         </button>
       )}
-      <DiscountInfo_mol discount={profile.discount} hint={profile.nextDiscountHint} />
+      {children}
     </section>
   )
 }

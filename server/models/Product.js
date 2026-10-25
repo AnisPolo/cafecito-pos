@@ -22,6 +22,8 @@ const productSchema = new mongoose.Schema(
         size: {type: [String], required: true},
         whippedCream: {type: Boolean, default: false},
         image: {type: String},
+        // "Eliminar" oculta el producto en lugar de borrarlo: los pedidos y tickets antiguos no se rompen
+        active: {type: Boolean, default: true},
     }
 );
 

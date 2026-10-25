@@ -1,0 +1,45 @@
+/* Fondo atenuado que cubre toda la pantalla */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(92, 58, 33, 0.45);
+}
+
+.card {
+  position: relative;
+  width: min(100%, 460px);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--white);
+  border: 1px solid var(--sage);
+  border-radius: 28px;
+  color: var(--brown-deep);
+}
+
+.close {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-size: var(--fs-lg);
+  line-height: 1;
+  color: var(--sage);
+}
+
+.close:hover,
+.close:focus-visible {
+  color: var(--brown);
+}
+
+.title {
+  margin-bottom: 1.25rem;
+  padding-right: 2rem;
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  color: var(--brown-deep);
+  overflow-wrap: anywhere;
+}

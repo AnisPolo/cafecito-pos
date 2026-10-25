@@ -1,5 +1,6 @@
 import Header_temp from './Header_temp'
 import ProfileCard_org from '../organisms/ProfileCard_org'
+import DiscountInfo_mol from '../molecules/DiscountInfo_mol'
 import SealsBoard_org from '../organisms/SealsBoard_org'
 import OrdersHistory_org from '../organisms/OrdersHistory_org'
 import OrderReceipt_org from '../organisms/OrderReceipt_org'
@@ -19,7 +20,9 @@ export default function ProfileTemplate_temp({
     <div className={styles.page}>
       <Header_temp active="perfil" />
       <main className={styles.main}>
-        <ProfileCard_org profile={profile} onLogout={onLogout} />
+        <ProfileCard_org profile={profile} onLogout={onLogout}>
+          <DiscountInfo_mol discount={profile.discount} hint={profile.nextDiscountHint} />
+        </ProfileCard_org>
         <div className={styles.right}>
           <SealsBoard_org total={profile.seals.total} filled={profile.seals.filled} />
           <OrdersHistory_org orders={orders} onSelect={onSelectOrder} />
